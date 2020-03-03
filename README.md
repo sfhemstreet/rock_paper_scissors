@@ -1,7 +1,7 @@
 # Rock Paper Scissors
 
 This was a fun project from [Frontend Mentor](https://www.frontendmentor.io/challenges/rock-paper-scissors-game-pTgwgvgH).
-They give give you the design and you code the product. 
+They give you the design and you code the product. 
 
 For this project I used TypeScript, Next.js, React.js, and styled-components.     
 
