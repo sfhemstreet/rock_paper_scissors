@@ -311,7 +311,7 @@ const RPSLSSelectionPentagon = ({
           }
         });
       } else {
-        throw new Error("Ummmm user selected nonexistant icon");
+        throw new Error("Ummmm user selected nonexistent icon");
       }
 
       setTimeout(function() {
