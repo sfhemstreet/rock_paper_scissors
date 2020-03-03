@@ -119,7 +119,7 @@ function Play(): JSX.Element {
   return (
     <BackGround>
       <MainContainer>
-        {/* Logo and Score Area: if not in play only shows logo, when play inits animates to LogoScoreBox */}
+        {/* Logo and Score Area: if not in play only shows logo, when playing LogoScoreBox */}
         <Pad20>
           <Center>
             {state.gameStage > 0 ? (

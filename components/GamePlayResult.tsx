@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import MasterTheme from "../themes/MasterTheme";
 import getWindowDimensions from "../utils/getWindowDimensions";
 import RPSLSIcon from "./RPSLSIcon";
