@@ -5,7 +5,7 @@ They give you the design and you code the product.
 
 For this project I used TypeScript, Next.js, React.js, and styled-components.    
 
-[Play it here](rock-paper-scissors.spencerhemstreet.now.sh)
+[Play it here](https://rock-paper-scissors.spencerhemstreet.now.sh/)
 
 ## Getting Started
 
