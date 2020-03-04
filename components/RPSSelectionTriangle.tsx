@@ -4,7 +4,7 @@ import RPSLSIcon from "./RPSLSIcon";
 import MasterTheme from "../themes/MasterTheme";
 import { Positioned } from "./Positioned";
 
-const Img = styled.div<{ isVisible: boolean }>`
+const TriangleImg = styled.div<{ isVisible: boolean }>`
   width: 250px;
   height: 250px;
 
@@ -175,7 +175,7 @@ const RPSSelectionTriangle = ({
   return (
     <>
       {displayAll && (
-      <Img isVisible={state.triangle.isVisible} />)}
+      <TriangleImg isVisible={state.triangle.isVisible} />)}
       {(displayAll || state.chosenOne === "Paper") && (
       <Positioned state={state.paper}>
         <RPSLSIcon

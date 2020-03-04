@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import ScaleIn from '../keyframes/ScaleIn';
 
-const Container = styled.div`
+const WinnerContainer = styled.div`
   width: 150px;
   height: 150px;
 
@@ -28,13 +28,13 @@ const Circle = styled.div<{delay: string}>`
 `;
 
 const WinnersCircle = (): JSX.Element => (
-  <Container>
+  <WinnerContainer>
     <Circle delay={"0s"}/>
     <Circle delay={".7s"}/>
     <Circle delay={"1.4s"}/>
     <Circle delay={"2.1s"}/>
     <Circle delay={"2.8s"}/>
-  </Container>
+  </WinnerContainer>
 );
 
 export default WinnersCircle;

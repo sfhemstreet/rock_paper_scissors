@@ -4,7 +4,7 @@ import RPSLSIcon from "./RPSLSIcon";
 import MasterTheme from "../themes/MasterTheme";
 import {Positioned} from "./Positioned";
 
-const Img = styled.div<{ isVisible: boolean; isSmaller: boolean }>`
+const PentagonImg = styled.div<{ isVisible: boolean; isSmaller: boolean }>`
   width: ${props => (props.isSmaller ? "260px" : "350px")};
   height: ${props => (props.isSmaller ? "260px" : "350px")};
 
@@ -304,7 +304,7 @@ const RPSLSSelectionPentagon = ({
   return (
     <>
       {displayAll && (
-      <Img isVisible={state.pentagon.isVisible} isSmaller={isMobile} />)}
+      <PentagonImg isVisible={state.pentagon.isVisible} isSmaller={isMobile} />)}
 
       {(displayAll || state.chosenOne === "Paper") && (
       <Positioned state={state.paper}>

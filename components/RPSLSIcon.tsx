@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const MainContainer = styled.div<{ icon: string, isSmaller?: boolean }>`
+const MainIconContainer = styled.div<{ icon: string, isSmaller?: boolean }>`
   width: ${props => props.isSmaller ? '100px' : '150px'};
   height: ${props => props.isSmaller ? '100px' : '150px'};;
 
@@ -152,7 +152,7 @@ const RPSLSIcon = ({ option, isSmaller, onClick }: RPSLSIconProps): JSX.Element 
   const { iconSrc, iconAlt } = getIconSrcAlt(iconOption);
 
   return (
-    <MainContainer
+    <MainIconContainer
       isSmaller={isSmaller}
       icon={iconOption}
       onClick={() => (onClick ? onClick(option) : null)}
@@ -162,7 +162,7 @@ const RPSLSIcon = ({ option, isSmaller, onClick }: RPSLSIconProps): JSX.Element 
           <Img src={iconSrc} alt={iconAlt} />
         </ImgContainer>
       </IconContainer>
-    </MainContainer>
+    </MainIconContainer>
   );
 };
 
