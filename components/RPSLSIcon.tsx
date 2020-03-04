@@ -8,26 +8,6 @@ const MainContainer = styled.div<{ icon: string, isSmaller?: boolean }>`
   border-radius: 50%;
 
   transition: box-shadow 0.3s ease-in-out, width 1s ease-in-out .5s, height 1s ease-in-out .5s;
-
-  :hover {
-    box-shadow: 0 3px 2px 3px
-      ${props => {
-        switch (props.icon) {
-          case "rock":
-            return 'red';
-          case "paper":
-            return 'blue';
-          case "scissors":
-            return 'yellow';
-          case "lizard":
-            return 'purple';
-          case "spock":
-            return 'cyan';
-          default:
-            return 'red';
-        }
-      }};
-  }
 `;
 
 const IconContainer = styled.div<{ icon: string }>`

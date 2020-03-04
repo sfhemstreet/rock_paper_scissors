@@ -24,7 +24,7 @@ const MainContainer = styled.div`
 
   @media screen and (max-width: ${props =>
       props.theme.mediaWidths.shrinkWidth}) {
-    min-height: 600px;
+    min-height: 550px;
   }
 `;
 

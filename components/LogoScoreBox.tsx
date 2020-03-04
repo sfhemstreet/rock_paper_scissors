@@ -21,6 +21,7 @@ const Container = styled.div`
 
   @media screen and (max-width: ${props => props.theme.mediaWidths.shrinkWidth}) {
     width: 300px;
+    padding: 10px;
   }
 `;
 

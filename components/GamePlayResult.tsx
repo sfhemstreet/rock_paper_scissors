@@ -6,7 +6,7 @@ import IconShadowPlaceHolder from "./IconShadowPlaceHolder";
 import determineWinner from "../utils/determineWinner";
 import FadeIn from "../keyframes/FadeIn";
 import Center from "./Center";
-
+import WinnersCircle from "./WinnerCircle";
 
 const Container = styled.div`
   width: 370px;
@@ -204,6 +204,29 @@ const GamePlayResult = ({
       curve: "cubic-bezier(0.695, 0.010, 0.880, -0.055)"
     };
 
+    const opponentWinnerCircleState: FadeInPositionedData = {
+      pos: isMobile
+        ? MasterTheme.positions.opponentSelectionMobile
+        : MasterTheme.positions.opponentSelection,
+      duration: "3s",
+      curve: "cubic-bezier(0.695, 0.010, 0.880, -0.055)"
+    };
+
+    const userWinnerCircleState: FadeInPositionedData = {
+      pos: isMobile
+        ? MasterTheme.positions.userSelectionMobile
+        : MasterTheme.positions.userSelection,
+      duration: "3s",
+      curve: "cubic-bezier(0.695, 0.010, 0.880, -0.055)"
+    };
+
+    const winnerCircleState: FadeInPositionedData | null =
+      winner === "Tie"
+        ? null
+        : winner === "User"
+        ? userWinnerCircleState
+        : opponentWinnerCircleState;
+
     return (
       <Container>
         <FadeInPositioned state={userTextPos}>
@@ -215,6 +238,9 @@ const GamePlayResult = ({
         <FadeInPositioned state={opponentShadowFadeIn}>
           <IconShadowPlaceHolder />
         </FadeInPositioned>
+        {winnerCircleState && <FadeInPositioned state={winnerCircleState}>
+          <WinnersCircle />
+        </FadeInPositioned>}
         <Positioned state={userState}>
           <RPSLSIcon option={user} />
         </Positioned>

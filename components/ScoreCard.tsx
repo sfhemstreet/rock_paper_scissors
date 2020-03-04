@@ -13,14 +13,19 @@ const Card = styled.div`
   align-items: center;
 
   @media screen and (max-width: ${props => props.theme.mediaWidths.shrinkWidth}) {
-    width: 100px;
-    height: 80px;
+    width: 70px;
+    height: 55px;
   }
 `;
 
 const Title = styled.div`
   letter-spacing: 2px;
   color: ${props => props.theme.colors.scoreText};
+
+  @media screen and (max-width: ${props => props.theme.mediaWidths.shrinkWidth}) {
+    letter-spacing: 1px;
+   
+  }
 `;
 
 const Score = styled.div`
@@ -30,7 +35,7 @@ const Score = styled.div`
   color: ${props => props.theme.colors.darkText};
 
   @media screen and (max-width: ${props => props.theme.mediaWidths.shrinkWidth}) {
-    font-size: 40px;
+    font-size: 28px;
   }
 `;
 

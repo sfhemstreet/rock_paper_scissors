@@ -8,7 +8,7 @@ const Img = styled.img`
   transition: all 0.5s ease-in-out;
 
   @media screen and (max-width: ${props => props.theme.mediaWidths.shrinkWidth}) {
-    height: 80px;
+    height: 55px;
   }
 `;
 
