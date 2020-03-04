@@ -231,11 +231,7 @@ function Play(): JSX.Element {
     );
   } else {
     return <BackGround>
-      <Center>
-        <Text>
-          Please view on a browser.
-        </Text>
-      </Center>
+      
     </BackGround>;
   }
 }
