@@ -9,11 +9,15 @@ import RulesButton from "../components/RulesButton";
 import PlayButton from "../components/PlayButton";
 import SelectGameMode from "../components/SelectGameMode";
 import RulesModal from "../components/RulesModal";
-import RPSLSSelectionPentagon from "../components/RPSLSSelectionPentagon";
-import RPSSelectionTriangle from "../components/RPSSelectionTriangle";
-import GamePlayResult from "../components/GamePlayResult";
 import determineWinner from "../utils/determineWinner";
 import Center from "../components/Center";
+import getWindowDimensions from "../utils/getWindowDimensions";
+import MasterTheme from "../themes/MasterTheme";
+import getRandomRPSLS from "../utils/getRandomRPSLS";
+import RPSSelectionTriangle from "../components/RPSSelectionTriangle";
+import RPSLSSelectionPentagon from "../components/RPSLSSelectionPentagon";
+import FadeIn from "../keyframes/FadeIn";
+import GamePlayResult from "../components/GamePlayResult";
 
 const MainContainer = styled.div`
   display: flex;
@@ -24,8 +28,25 @@ const MainContainer = styled.div`
 
   @media screen and (max-width: ${props =>
       props.theme.mediaWidths.shrinkWidth}) {
-    min-height: 550px;
+    min-height: 535px;
   }
+`;
+
+const PlayContainer = styled.div<{ needsExtraPadding: boolean }>`
+  animation: ${FadeIn} ease 0.5s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+
+  width: 370px;
+  height: 370px;
+
+  margin: ${props => (props.needsExtraPadding ? "60px" : "20px")};
+
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Pad20 = styled.div`
@@ -60,7 +81,7 @@ const RulesButtonContainer = styled.div`
 
 const initGameState = {
   isLizardSpockMode: false,
-  gameStage: 0,
+  gameStage: -1,
   score: 0,
   userSelection: "",
   opponentSelection: "",
@@ -71,7 +92,7 @@ function Play(): JSX.Element {
   const [state, setState] = useState(initGameState);
 
   const onUserSelection = (userSelection: string): void => {
-    const opponentSelection = getRandomOption();
+    const opponentSelection = getRandomRPSLS(state.isLizardSpockMode);
     const winner = determineWinner(userSelection, opponentSelection);
     const point = winner === "Tie" ? 0 : winner === "User" ? 1 : -1;
     setState({
@@ -83,136 +104,140 @@ function Play(): JSX.Element {
     });
   };
 
-  const getRandomOption = (): string => {
-    const max = state.isLizardSpockMode ? 5 : 3;
-    const min = 1;
-    const random = Math.floor(Math.random() * (max - min + 1) + min);
-    switch (random) {
-      case 1:
-        return "Rock";
-      case 2:
-        return "Paper";
-      case 3:
-        return "Scissors";
-      case 4:
-        return "Lizard";
-      case 5:
-        return "Spock";
-      default:
-        throw new Error("Computer picked impossible option...");
-    }
-  };
-
   const onPlayAgain = () => {
     setState({
       ...state,
-      userSelection: "",
-      opponentSelection: "",
-      gameStage: 1
+      gameStage: 0
+    });
+
+    setTimeout(() => {
+      setState({
+        ...state,
+        userSelection: "",
+        opponentSelection: "",
+        gameStage: 1
+      });
+    }, 100);
+  };
+
+  const onGoToHomeScreen = () => {
+    setState({
+      ...initGameState,
+      isLizardSpockMode: state.isLizardSpockMode,
+      score: state.score
     });
   };
 
-  const onResetGame = () => {
-    setState(initGameState);
-  };
+  if (typeof window !== "undefined") {
+    const { width } = getWindowDimensions();
+    const isMobile =
+      width <
+      Number.parseInt(MasterTheme.mediaWidths.shrinkWidth.substring(0, 3));
 
-  return (
-    <BackGround>
-      <MainContainer>
-        {/* Logo and Score Area: if not in play only shows logo, when playing LogoScoreBox */}
-        <Pad20>
-          <Center>
-            {state.gameStage > 0 ? (
+    return (
+      <BackGround>
+        <MainContainer>
+          {/* Logo and Score Area: if not in play only shows logo, when playing LogoScoreBox */}
+          <Pad20>
+            <Center>
               <LogoScoreBox>
                 <Logo
                   isLizardSpockMode={state.isLizardSpockMode}
-                  onClick={onResetGame}
+                  onClick={onGoToHomeScreen}
                 />
                 <ScoreCard>{state.score}</ScoreCard>
               </LogoScoreBox>
-            ) : (
-              <Pad20>
-                <Logo isLizardSpockMode={state.isLizardSpockMode} />
-              </Pad20>
-            )}
-          </Center>
-        </Pad20>
+            </Center>
+          </Pad20>
 
-        {/* Start Screen: displays game mode option selection and Play button.  */}
-        {state.gameStage === 0 && (
-          <>
-            <Pad20>
-              <Center>
-                <Text>Game Mode</Text>
-              </Center>
+          {/* Start Screen: displays game mode option selection and Play button.  */}
+          {state.gameStage === -1 && (
+            <>
               <Pad20>
                 <Center>
-                  <SelectGameMode
-                    isLizardSpockMode={state.isLizardSpockMode}
-                    onSelection={(isLizardSpockMode: boolean) =>
-                      setState({
-                        ...state,
-                        isLizardSpockMode: isLizardSpockMode
-                      })
-                    }
+                  <Text>Game Mode</Text>
+                </Center>
+                <Pad20>
+                  <Center>
+                    <SelectGameMode
+                      isLizardSpockMode={state.isLizardSpockMode}
+                      onSelection={(isLizardSpockMode: boolean) =>
+                        setState({
+                          ...state,
+                          isLizardSpockMode: isLizardSpockMode
+                        })
+                      }
+                    />
+                  </Center>
+                </Pad20>
+              </Pad20>
+              <Pad20>
+                <Center>
+                  <PlayButton
+                    onClick={() => setState({ ...state, gameStage: 1 })}
                   />
                 </Center>
               </Pad20>
-            </Pad20>
-            <Pad20>
-              <Center>
-                <PlayButton
-                  onClick={() => setState({ ...state, gameStage: 1 })}
-                />
-              </Center>
-            </Pad20>
-          </>
-        )}
-
-        {/* Stage 1 of 2 Game Play: displays "rock" "paper" etc */}
-        {state.gameStage === 1 && (
-          <Center>
-            {state.isLizardSpockMode ? (
-              <RPSLSSelectionPentagon
-                onSelection={(userSelection: string) =>
-                  onUserSelection(userSelection)
-                }
-              />
-            ) : (
-              <RPSSelectionTriangle
-                onSelection={(userSelection: string) =>
-                  onUserSelection(userSelection)
-                }
+            </>
+          )}
+          {state.gameStage > 0 && (
+          <PlayContainer
+            needsExtraPadding={!isMobile && state.isLizardSpockMode}
+          >
+            {/* Stage 1 of 2 Game Play: displays "rock" "paper" etc */}
+            {state.gameStage >= 1 && (
+              <>
+                {state.isLizardSpockMode ? (
+                  <RPSLSSelectionPentagon
+                    isMobile={isMobile}
+                    onSelection={(userSelection: string) =>
+                      onUserSelection(userSelection)
+                    }
+                  />
+                ) : (
+                  <RPSSelectionTriangle
+                    isMobile={isMobile}
+                    onSelection={(userSelection: string) =>
+                      onUserSelection(userSelection)
+                    }
+                  />
+                )}
+              </>
+            )}
+            {/* Stage 2 of 2 Game Play: displays what user picked and what 
+            opponent picked and tells who winner is, along with play again button. */}
+            {state.gameStage === 2 && (
+              <GamePlayResult
+                isMobile={isMobile}
+                user={state.userSelection}
+                opponent={state.opponentSelection}
+                onClickPlayAgain={onPlayAgain}
               />
             )}
-          </Center>
+          </PlayContainer>)}
+        </MainContainer>
+        <RulesButtonContainer>
+          <RulesButton
+            onClick={() => setState({ ...state, isRulesModalOpen: true })}
+          />
+        </RulesButtonContainer>
+        {state.isRulesModalOpen && (
+          <RulesModal
+            isLizardSpockMode={state.isLizardSpockMode}
+            onClickClose={() => setState({ ...state, isRulesModalOpen: false })}
+          />
         )}
-
-        {/* Stage 2 of 2 Game Play: displays what user picked and what 
-        opponent picked and tells who winner is, along with play again button. */}
-        {state.gameStage === 2 && (
-          <Center>
-            <GamePlayResult
-              user={state.userSelection}
-              opponent={state.opponentSelection}
-              onClickPlayAgain={onPlayAgain}
-            />
-          </Center>
-        )}
-      </MainContainer>
-      <RulesButtonContainer>
-        <RulesButton
-          onClick={() => setState({ ...state, isRulesModalOpen: true })}
-        />
-      </RulesButtonContainer>
-      {state.isRulesModalOpen && (
-        <RulesModal
-          isLizardSpockMode={state.isLizardSpockMode}
-          onClickClose={() => setState({ ...state, isRulesModalOpen: false })}
-        />
-      )}
-    </BackGround>
-  );
+      </BackGround>
+    );
+  } else {
+    return <BackGround>
+      <Center>
+        <Text>
+          Please view on a browser.
+        </Text>
+      </Center>
+    </BackGround>;
+  }
 }
 
 export default Play;

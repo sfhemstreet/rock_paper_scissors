@@ -32,19 +32,19 @@ const MasterTheme = {
   },
   positions: {
     userSelection: {
-      top: 85 as 85,
+      top: 55 as 55,
       left: -90 as -90,
     },
     opponentSelection: {
-      top: 85, 
+      top: 55, 
       left: 300,
     },
     userSelectionMobile: {
-      top: 85 as 85,
+      top: 55 as 55,
       left: 15 as 15,
     },
     opponentSelectionMobile: {
-      top: 85 as 85, 
+      top: 55 as 55, 
       left: 205 as 205,
     }
   }

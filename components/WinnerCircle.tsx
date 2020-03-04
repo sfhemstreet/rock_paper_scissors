@@ -1,15 +1,5 @@
-import styled, { keyframes } from 'styled-components';
-
-const ScaleIn = keyframes`
-  from {
-    transform: scale(.5, .5);
-    opacity: .15;
-  }
-  to {
-    transform: scale(2.5, 2.5);
-    opacity: 0;
-  }
-`;
+import styled from 'styled-components';
+import ScaleIn from '../keyframes/ScaleIn';
 
 const Container = styled.div`
   width: 150px;
