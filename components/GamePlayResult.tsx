@@ -208,16 +208,16 @@ const GamePlayResult = ({
       pos: isMobile
         ? MasterTheme.positions.opponentSelectionMobile
         : MasterTheme.positions.opponentSelection,
-      duration: "3s",
-      curve: "cubic-bezier(0.695, 0.010, 0.880, -0.055)"
+      duration: "4s",
+      curve: "ease-in"
     };
 
     const userWinnerCircleState: FadeInPositionedData = {
       pos: isMobile
         ? MasterTheme.positions.userSelectionMobile
         : MasterTheme.positions.userSelection,
-      duration: "3s",
-      curve: "cubic-bezier(0.695, 0.010, 0.880, -0.055)"
+      duration: "4s",
+      curve: "ease-in"
     };
 
     const winnerCircleState: FadeInPositionedData | null =
