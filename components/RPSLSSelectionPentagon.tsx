@@ -85,6 +85,11 @@ const RPSLSSelectionPentagon = ({
   // Whatever the user picks goes into the userSelection position.
   // Everything the user didn't pick has isVisible set to false.
   const animateExit = (selection: string): void => {
+    // If user clicks on an icon after already selecting one do nothing.
+    if(displayAll === false){
+      return;
+    }
+    // Check what the user selected and animate accordingly. 
     if (selection === "Paper") {
       setState({
         ...state,

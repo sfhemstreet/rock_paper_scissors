@@ -92,16 +92,20 @@ function Play(): JSX.Element {
   const [state, setState] = useState(initGameState);
 
   const onUserSelection = (userSelection: string): void => {
-    const opponentSelection = getRandomRPSLS(state.isLizardSpockMode);
-    const winner = determineWinner(userSelection, opponentSelection);
-    const point = winner === "Tie" ? 0 : winner === "User" ? 1 : -1;
-    setState({
-      ...state,
-      userSelection: userSelection,
-      opponentSelection: opponentSelection,
-      score: state.score + point,
-      gameStage: 2
-    });
+    // The user's selection stays on screen for stage 2, 
+    // but should not do the following if clicked on. 
+    if(state.gameStage !== 2){
+      const opponentSelection = getRandomRPSLS(state.isLizardSpockMode);
+      const winner = determineWinner(userSelection, opponentSelection);
+      const point = winner === "Tie" ? 0 : winner === "User" ? 1 : -1;
+      setState({
+        ...state,
+        userSelection: userSelection,
+        opponentSelection: opponentSelection,
+        score: state.score + point,
+        gameStage: 2
+      });
+    }
   };
 
   const onPlayAgain = () => {
