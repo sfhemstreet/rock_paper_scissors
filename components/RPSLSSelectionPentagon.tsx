@@ -81,12 +81,25 @@ const RPSLSSelectionPentagon = ({
   // we want everything else to be removed.
   const [displayAll, setDisplayAll] = useState(true);
 
+  // Keeps track of if user has selected an icon already.
+  const [hasClicked, setClicked] = useState(false);
+
+  // If user clicks on an icon after already selecting one do nothing.
+  const handleClick = (): boolean => {
+    if(hasClicked){
+      return false;
+    } else {
+      setClicked(true);
+      return true;
+    }
+  }
+
   // Sets new positions for each element, based on what the user picks.
   // Whatever the user picks goes into the userSelection position.
   // Everything the user didn't pick has isVisible set to false.
   const animateExit = (selection: string): void => {
     // If user clicks on an icon after already selecting one do nothing.
-    if(displayAll === false){
+    if(handleClick()){
       return;
     }
     // Check what the user selected and animate accordingly. 
