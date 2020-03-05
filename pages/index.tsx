@@ -136,6 +136,9 @@ function Play(): JSX.Element {
 
     return (
       <BackGround>
+        <Head>
+          <title>Rock Paper Scissors</title>
+        </Head>
         <MainContainer>
           {/* Logo and Score Area: if not in play only shows logo, when playing LogoScoreBox */}
           <Pad20>
