@@ -87,10 +87,10 @@ const RPSLSSelectionPentagon = ({
   // If user clicks on an icon after already selecting one do nothing.
   const handleClick = (): boolean => {
     if(hasClicked){
-      return false;
+      return true;
     } else {
       setClicked(true);
-      return true;
+      return false;
     }
   }
 
